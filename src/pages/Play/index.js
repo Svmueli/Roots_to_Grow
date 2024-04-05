@@ -60,6 +60,21 @@ const PlayGame = () => {
               Start
             </div>
           </div>
+          {/* Dice at the center of the circle shape */}
+          <div
+            className="bg-white/70 backdrop-blur-md rounded-full flex justify-center items-center w-16 h-16 absolute"
+            style={{
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            🎲
+          </div>
+          {/* Button inside the box, below the dice */}
+          <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded absolute bottom-4 left-1/2 transform -translate-x-1/2">
+            Play
+          </button>
         </div>
       </div>
     </div>
