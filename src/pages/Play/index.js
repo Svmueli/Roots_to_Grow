@@ -13,6 +13,7 @@ const PlayGame = () => {
   const [diceValue, setDiceValue] = useState(1);
   const [rolling, setRolling] = useState(false);
   const [farmerPosition, setFarmerPosition] = useState(-1); // Initial position outside the circle
+  const [totalAmount, setTotalAmount] = useState(0);
 
   const handlePlay = () => {
     setRolling(true);
@@ -52,6 +53,10 @@ const PlayGame = () => {
       <p className="text-xl font-medium text-gray-700 mb-2 bg-yellow-100 p-2 rounded shadow flex items-center">
         🧑‍🚀 Selected Character:{" "}
         <span className="font-bold text-gray-800 ml-2">{character} 🌟</span>
+      </p>
+
+      <p className="text-xl font-medium text-gray-700 mt-2">
+        Total Amount: {totalAmount} 💰
       </p>
 
       {/* Box to display the dice value */}
