@@ -8,6 +8,9 @@ const PlayGame = () => {
     character: "No character selected",
   };
 
+  // Array of unique icons for each oval
+  const icons = ["⚔️", "💰", "🛡️", "🔮", "🧙‍♂️", "🧝‍♀️", "🐉", "🏹", "👑", "🌟"];
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <h1 className="text-4xl font-bold text-gray-800 mb-4 mt-2 shadow-lg p-3 rounded-lg bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 text-white flex justify-center items-center">
@@ -29,7 +32,6 @@ const PlayGame = () => {
         >
           {/* Ovals positioned to form a circular shape */}
           <div className="absolute">
-            {/* Other ovals forming the circular shape */}
             {Array.from({ length: 9 }).map((_, index) => (
               <div
                 key={index}
@@ -42,7 +44,7 @@ const PlayGame = () => {
                   marginTop: "-4px",
                 }}
               >
-                {index % 3 === 0 ? "⚔️" : index % 3 === 1 ? "💰" : "🛡️"}
+                {icons[index % icons.length]} {/* Use index to select icon from array */}
               </div>
             ))}
             <div
