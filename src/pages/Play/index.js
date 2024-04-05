@@ -14,7 +14,8 @@ const PlayGame = () => {
         🎮 Roots To Grow 🕹️
       </h1>
       <p className="text-xl font-medium text-gray-700 mb-2 bg-yellow-100 p-2 rounded shadow flex items-center">
-        🧑‍🚀 Selected Character: <span className="font-bold text-gray-800 ml-2">{character} 🌟</span>
+        🧑‍🚀 Selected Character:{" "}
+        <span className="font-bold text-gray-800 ml-2">{character} 🌟</span>
       </p>
 
       <div className="mt-8 relative">
@@ -26,23 +27,35 @@ const PlayGame = () => {
           }}
           className="border-4 border-gray-800 p-20 rounded-md bg-cover bg-center cursor-pointer relative overflow-hidden flex items-center justify-center"
         >
-          {/* Ovals positioned to suggest a heart shape */}
-          <div className="absolute" style={{ top: '50%', transform: 'translate(-50%, -50%)' }}>
-            <div className="flex justify-center items-end">
-              {/* Top Left Oval */}
-              <div className="bg-white/70 backdrop-blur-md rounded-full flex justify-center items-center w-16 h-10 m-2">
-                ⚔️
+          {/* Ovals positioned to form a circular shape */}
+          <div className="absolute">
+            {/* Other ovals forming the circular shape */}
+            {Array.from({ length: 9 }).map((_, index) => (
+              <div
+                key={index}
+                className="bg-white/70 backdrop-blur-md rounded-full flex justify-center items-center w-12 h-8 absolute"
+                style={{
+                  transform: `rotate(${(index + 1) * (360 / 9)}deg) translate(10rem) rotate(${-(index + 1) * (360 / 9)}deg)`,
+                  top: "50%",
+                  left: "50%",
+                  marginLeft: "-6px",
+                  marginTop: "-4px",
+                }}
+              >
+                {index % 3 === 0 ? "⚔️" : index % 3 === 1 ? "💰" : "🛡️"}
               </div>
-              {/* Top Right Oval */}
-              <div className="bg-white/70 backdrop-blur-md rounded-full flex justify-center items-center w-16 h-10 m-2">
-                🛡️
-              </div>
-            </div>
-            {/* Bottom Oval */}
-            <div className="flex justify-center">
-              <div className="bg-white/70 backdrop-blur-md rounded-full flex justify-center items-center w-16 h-10 m-2">
-                💰
-              </div>
+            ))}
+            <div
+              className="bg-white/70 backdrop-blur-md rounded-full flex justify-center items-center w-12 h-8 absolute"
+              style={{
+                transform: `rotate(${(360 / 9)}deg) translate(10rem) rotate(${-360 / 9}deg)`,
+                top: "50%",
+                left: "50%",
+                marginLeft: "-6px",
+                marginTop: "-4px",
+              }}
+            >
+              Start
             </div>
           </div>
         </div>
