@@ -8,26 +8,40 @@ const PlayGame = () => {
     character: "No character selected",
   };
 
-  // Array of unique icons for each oval
   const icons = ["⚔️", "💰", "🛡️", "🔮", "🧙‍♂️", "🧝‍♀️", "🐉", "🏹", "👑", "🌟"];
 
-  // State to manage dice value and rolling animation
   const [diceValue, setDiceValue] = useState(1);
   const [rolling, setRolling] = useState(false);
-  const [showDiceNumber, setShowDiceNumber] = useState(false); // State to show dice number box
+  const [farmerPosition, setFarmerPosition] = useState(-1); // Initial position outside the circle
 
-  // Event handler for the "Play" button
   const handlePlay = () => {
-    // Start rolling animation
     setRolling(true);
 
-    // Simulate dice rolling
     setTimeout(() => {
-      const newValue = Math.floor(Math.random() * 6) + 1; // Random dice value between 1 and 6
+      const newValue = Math.floor(Math.random() * 6) + 1;
       setDiceValue(newValue);
-      setShowDiceNumber(true); // Show dice number box
-      setRolling(false); // Stop rolling animation
-    }, 1000); // Simulate rolling for 1 second
+      setRolling(false);
+
+      const newPosition = (farmerPosition + newValue) % 9;
+      setFarmerPosition(newPosition);
+    }, 1000);
+  };
+
+  // Calculate CSS styles for the farmer icon based on its position
+  const getFarmerStyles = () => {
+    if (farmerPosition === -1) {
+      // Position the farmer outside the circle initially
+      return { left: "50%", top: "10%" };
+    } else {
+      const degrees = (360 / 9) * farmerPosition;
+      const radians = (degrees * Math.PI) / 180;
+      const radius = 10; // Adjust the radius as needed
+      const centerX = 50; // Adjust the center X coordinate as needed
+      const centerY = 50; // Adjust the center Y coordinate as needed
+      const left = centerX + radius * Math.cos(radians) + "%";
+      const top = centerY + radius * Math.sin(radians) + "%";
+      return { left, top };
+    }
   };
 
   return (
@@ -40,6 +54,13 @@ const PlayGame = () => {
         <span className="font-bold text-gray-800 ml-2">{character} 🌟</span>
       </p>
 
+      {/* Box to display the dice value */}
+      <div className="mt-4">
+        <p className="text-xl font-medium text-gray-700">
+          Dice Value: {diceValue}
+        </p>
+      </div>
+
       <div className="mt-8 relative">
         <div
           style={{
@@ -49,7 +70,6 @@ const PlayGame = () => {
           }}
           className="border-4 border-gray-800 p-20 rounded-md bg-cover bg-center cursor-pointer relative overflow-hidden flex items-center justify-center"
         >
-          {/* Ovals positioned to form a circular shape */}
           <div className="absolute">
             {Array.from({ length: 9 }).map((_, index) => (
               <div
@@ -63,7 +83,7 @@ const PlayGame = () => {
                   marginTop: "-4px",
                 }}
               >
-                {icons[index % icons.length]} {/* Use index to select icon from array */}
+                {icons[index % icons.length]}
               </div>
             ))}
             <div
@@ -79,31 +99,33 @@ const PlayGame = () => {
               Start
             </div>
           </div>
-          {/* Dice at the center of the circle shape with rolling animation */}
+          {/* Farmer icon */}
           <div
-            className={`bg-white/70 flex justify-center items-center w-24 h-24 absolute transition-transform ${
+            className="bg-yellow-300 rounded-full flex justify-center items-center w-8 h-8 absolute"
+            style={{
+              ...getFarmerStyles(),
+              transition: "left 1s, top 1s",
+            }}
+          >
+            👨‍🌾
+          </div>
+          <div
+            className={`bg-white/70 flex justify-center items-center w-16 h-16 absolute transition-transform ${
               rolling ? "animate-spin" : ""
             }`}
             style={{
-              top: "50%",
-              left: "50%",
+              top: "53%",
+              left: "53%",
               transform: `translate(-50%, -50%) rotate(${(diceValue - 1) * 45}deg)`,
-              background: "transparent", // Set background to transparent
+              background: "transparent",
             }}
           >
             🎲
           </div>
-          {/* Box to display rolled dice number */}
-          {showDiceNumber && (
-            <div className="bg-white p-2 rounded-lg absolute top-0 left-1/2 transform -translate-x-1/2 mt-10">
-              <span className="text-xl">{diceValue}</span>
-            </div>
-          )}
-          {/* Button inside the box, below the dice */}
           <button
             className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded absolute bottom-4 left-1/2 transform -translate-x-1/2"
             onClick={handlePlay}
-            disabled={rolling} // Disable button during animation
+            disabled={rolling}
           >
             Play
           </button>
