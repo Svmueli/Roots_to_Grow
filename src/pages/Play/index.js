@@ -1,9 +1,16 @@
-import React from "react";
+import React from 'react';
+import { useLocation } from 'react-router-dom';
 
-export default function Welcome() {
-    return (
-        <div className="flex flex-col justify-center items-center min-h-screen">
-            <h1 className="text-3xl font-bold text-green-700 mb-4">Welcome to the Roots to Grow Game 🎮</h1>
-        </div>
-    );
-}
+const PlayGame = () => {
+  const location = useLocation();
+  const { character } = location.state || { character: 'No character selected' };
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen">
+      <h1 className="text-2xl font-bold">Play Game Page</h1>
+      <p>Selected Character: {character}</p>
+    </div>
+  );
+};
+
+export default PlayGame;

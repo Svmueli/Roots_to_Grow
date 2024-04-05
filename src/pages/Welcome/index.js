@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Welcome() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -7,12 +7,18 @@ export default function Welcome() {
   const showModal = () => setIsModalOpen(true);
   const hideModal = () => setIsModalOpen(false);
 
+  const navigate = useNavigate();
+
+  const selectCharacterAndPlay = (character) => {
+    hideModal(); // Close modal upon selection
+    navigate("/play", { state: { character } });
+  };
+
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
       <h1 className="text-3xl font-bold text-green-700 mb-4">
         Welcome to the Roots to Grow Game 🎮
       </h1>
-      {/* Replacing Link with button to handle modal */}
       <button
         onClick={showModal}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -31,30 +37,23 @@ export default function Welcome() {
                   Choose your character to start the game.
                 </p>
                 <div className="flex justify-around mt-4">
-                  <Link to="play">
-                    <div className="text-center">
-                      <div className="mb-2">🍖</div>
-                      <button className="text-xs">Butcher</button>
-                    </div>
-                  </Link>
-                  <Link to="play">
-                    <div className="text-center">
-                      <div className="mb-2">👷</div>
-                      <button className="text-xs">Carpenter</button>
-                    </div>
-                  </Link>
-                  <Link to="play">
-                    <div className="text-center">
-                      <div className="mb-2">🍖</div>
-                      <button className="text-xs">Butcher</button>
-                    </div>
-                  </Link>
-                  <Link to="play">
-                    <div className="text-center">
-                      <div className="mb-2">🍖</div>
-                      <button className="text-xs">Butcher</button>
-                    </div>
-                  </Link>
+                  {/* Each character selection now uses a button to call selectCharacterAndPlay */}
+                  <button onClick={() => selectCharacterAndPlay('Farmer')} className="text-center text-xs">
+                    <div className="mb-2">👨‍🌾</div>
+                    Farmer
+                  </button>
+                  <button onClick={() => selectCharacterAndPlay('Carpenter')} className="text-center text-xs">
+                    <div className="mb-2">👷</div>
+                    Carpenter
+                  </button>
+                  <button onClick={() => selectCharacterAndPlay('Butcher')} className="text-center text-xs">
+                    <div className="mb-2">🍖</div>
+                    Butcher
+                  </button>
+                  <button onClick={() => selectCharacterAndPlay('Mechanic')} className="text-center text-xs">
+                    <div className="mb-2">🔧</div>
+                    Mechanic
+                  </button>
                 </div>
               </div>
               <div className="items-center px-4 py-3">
