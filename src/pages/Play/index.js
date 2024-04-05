@@ -14,6 +14,7 @@ const PlayGame = () => {
   // State to manage dice value and rolling animation
   const [diceValue, setDiceValue] = useState(1);
   const [rolling, setRolling] = useState(false);
+  const [showDiceNumber, setShowDiceNumber] = useState(false); // State to show dice number box
 
   // Event handler for the "Play" button
   const handlePlay = () => {
@@ -24,6 +25,7 @@ const PlayGame = () => {
     setTimeout(() => {
       const newValue = Math.floor(Math.random() * 6) + 1; // Random dice value between 1 and 6
       setDiceValue(newValue);
+      setShowDiceNumber(true); // Show dice number box
       setRolling(false); // Stop rolling animation
     }, 1000); // Simulate rolling for 1 second
   };
@@ -79,17 +81,24 @@ const PlayGame = () => {
           </div>
           {/* Dice at the center of the circle shape with rolling animation */}
           <div
-            className={`bg-white/70 backdrop-blur-md rounded-full flex justify-center items-center w-16 h-16 absolute transition-transform ${
+            className={`bg-white/70 flex justify-center items-center w-24 h-24 absolute transition-transform ${
               rolling ? "animate-spin" : ""
             }`}
             style={{
               top: "50%",
               left: "50%",
               transform: `translate(-50%, -50%) rotate(${(diceValue - 1) * 45}deg)`,
+              background: "transparent", // Set background to transparent
             }}
           >
             🎲
           </div>
+          {/* Box to display rolled dice number */}
+          {showDiceNumber && (
+            <div className="bg-white p-2 rounded-lg absolute top-0 left-1/2 transform -translate-x-1/2 mt-10">
+              <span className="text-xl">{diceValue}</span>
+            </div>
+          )}
           {/* Button inside the box, below the dice */}
           <button
             className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded absolute bottom-4 left-1/2 transform -translate-x-1/2"
