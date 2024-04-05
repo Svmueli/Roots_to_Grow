@@ -21,25 +21,30 @@ const PlayGame = () => {
         <div
           style={{
             backgroundImage: `url(${baobabTreeImage})`,
-            height: "40rem", // Maintaining the specified height
-            width: "60rem", // Maintaining the specified width
+            height: "40rem",
+            width: "60rem",
           }}
-          className="border-4 border-gray-800 p-20 rounded-md bg-cover bg-center cursor-pointer relative overflow-hidden"
+          className="border-4 border-gray-800 p-20 rounded-md bg-cover bg-center cursor-pointer relative overflow-hidden flex items-center justify-center"
         >
-          {/* Ovals with icons */}
-          <div className="absolute top-10 left-10 flex space-x-4">
-            {/* Each oval with an icon */}
-            <div className="bg-white/70 backdrop-blur-md rounded-full flex justify-center items-center w-16 h-10">
-              ⚔️ {/* Icon/Emoji for the first oval */}
+          {/* Ovals positioned to suggest a heart shape */}
+          <div className="absolute" style={{ top: '50%', transform: 'translate(-50%, -50%)' }}>
+            <div className="flex justify-center items-end">
+              {/* Top Left Oval */}
+              <div className="bg-white/70 backdrop-blur-md rounded-full flex justify-center items-center w-16 h-10 m-2">
+                ⚔️
+              </div>
+              {/* Top Right Oval */}
+              <div className="bg-white/70 backdrop-blur-md rounded-full flex justify-center items-center w-16 h-10 m-2">
+                🛡️
+              </div>
             </div>
-            <div className="bg-white/70 backdrop-blur-md rounded-full flex justify-center items-center w-16 h-10">
-              🛡️ {/* Icon/Emoji for the second oval */}
-            </div>
-            <div className="bg-white/70 backdrop-blur-md rounded-full flex justify-center items-center w-16 h-10">
-              💰 {/* Icon/Emoji for the third oval */}
+            {/* Bottom Oval */}
+            <div className="flex justify-center">
+              <div className="bg-white/70 backdrop-blur-md rounded-full flex justify-center items-center w-16 h-10 m-2">
+                💰
+              </div>
             </div>
           </div>
-          {/* Content goes here */}
         </div>
       </div>
     </div>
