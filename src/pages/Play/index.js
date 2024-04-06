@@ -79,7 +79,7 @@ const PlayGame = () => {
             {Array.from({ length: 9 }).map((_, index) => (
               <div
                 key={index}
-                className="bg-white/70 backdrop-blur-md rounded-full flex justify-center items-center w-12 h-8 absolute"
+                className="bg-white/70 backdrop-blur-md rounded-full flex justify-center items-center w-20 h-16 absolute"
                 style={{
                   transform: `rotate(${(index + 1) * (360 / 9)}deg) translate(10rem) rotate(${-(index + 1) * (360 / 9)}deg)`,
                   top: "50%",
